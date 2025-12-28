@@ -142,7 +142,7 @@ Usage
 
 Clone the repository:
 
-```git clone https://github.com/your-username/your-repo-name.git```
+```git clone https://github.com/aashu971/60fps-on-SPI-TFT-display```
 ```cd your-repo-name```
 
 
