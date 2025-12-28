@@ -71,9 +71,10 @@ Operating System
 Raspberry Pi OS (64-bit recommended)
 
 System Setup
-1. SPI Buffer Size (optional)
+1. SPI Buffer Size
 
 Increasing the SPI buffer size can help on some systems:
+```sudo nano /boot/firmware/cmdline.txt
 ```
 spidev.bufsiz=1600000
 ```
