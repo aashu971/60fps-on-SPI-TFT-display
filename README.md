@@ -24,7 +24,8 @@ gpu_freq=550
 v3d_freq=550
 
 sdram_freq=550
-over_voltage_sdram=2````
+over_voltage_sdram=2
+````
 SPI was enabled via raspi-config. These settings were stable on my Zero 2 W with a heatsink, but obviously overclocking depends on cooling and silicon quality.
 Display and SPI
 •	ILI9341 driven directly over SPI
@@ -52,3 +53,112 @@ Notes
 •	Results will vary depending on wiring and display quality
 •	SPI bandwidth is still the main limitation
 •	Overclocking may not be safe on every board
+
+#instructions
+
+Hardware Requirements
+
+Raspberry Pi Zero 2 W or better(with heatsink recommended)
+
+2.4" SPI TFT touchscreen (ILI9341)
+
+Short, high-quality SPI wiring
+
+Operating System
+
+Raspberry Pi OS (64-bit recommended)
+
+System Setup
+1. SPI Buffer Size (optional)
+
+Increasing the SPI buffer size can help on some systems:
+```
+spidev.bufsiz=1600000
+```
+
+On my setup, values around 200000 worked fine. Increasing further mostly provides headroom and stability, not a huge FPS boost.
+
+2. Clock / Voltage Settings (optional, use caution)
+
+Add the following to /boot/firmware/config.txt to increase clocks:
+```
+arm_freq=1300
+over_voltage=6
+
+core_freq=550
+gpu_freq=550
+v3d_freq=550
+
+sdram_freq=550
+over_voltage_sdram=2
+```
+
+SPI must be enabled via raspi-config.
+
+Overclocking is stable on my Zero 2 W with a heatsink, but may vary depending on your board and cooling.
+
+3. Display and SPI Settings
+
+ILI9341 driven directly over SPI
+
+SPI clock: 52 MHz (this affects performance the most)
+
+Resolution: 320×240
+
+16-bit RGB color
+
+No HDMI mirroring or desktop environment involved
+
+Software Setup
+1. Install dependencies
+
+All required Python libraries are in requirements.txt. Install them using:
+
+```pip install -r requirements.txt```
+
+2. How the code works
+
+OpenCV: Decodes and resizes video frames
+
+PIL (Pillow): Converts images for SPI output
+
+luma.lcd: Sends frames to the display over SPI
+
+Performance tips used in this project:
+
+Frames resized once to 320×240
+
+Frames buffered to prevent decoding from blocking display output
+
+No per-pixel Python loops
+
+No alpha blending
+
+Simple frame-timed loop targeting ~60 FPS
+
+The code keeps slightly ahead of playback by buffering frames, ensuring smooth display output.
+
+Usage
+
+Clone the repository:
+
+```git clone https://github.com/your-username/your-repo-name.git```
+```cd your-repo-name```
+
+
+Install dependencies:
+
+```pip install -r requirements.txt```
+
+
+Run the main script:
+
+python main.py
+
+Notes
+
+Results may vary depending on wiring, display quality, and hardware.
+
+SPI bandwidth is the main performance limitation.
+
+Overclocking may not be safe on all boards. Use at your own risk.
