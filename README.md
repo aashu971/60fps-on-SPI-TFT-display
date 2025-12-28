@@ -143,7 +143,7 @@ Usage
 Clone the repository:
 
 ```git clone https://github.com/aashu971/60fps-on-SPI-TFT-display```
-```cd your-repo-name```
+```cd 60fps-on-SPI-TFT-display```
 
 
 Install dependencies:
