@@ -10,7 +10,9 @@ OS
 •	Raspberry Pi OS (64-bit)
 System Setup
 SPI Buffer Size
-I experimented with increasing the SPI buffer size in the kernel command line:
+I experimented with increasing the SPI buffer size in the kernel command line :
+````sudo nano /boot/firmware/cmdline.txt
+````
 ````spidev.bufsiz=1600000````
 On my setup, this didn’t make a huge difference once the value was “large enough.” I also tested values around 200000, and FPS was about the same. Going higher mostly just added some headroom and stability rather than raw speed.
 That said, this doesn’t behave the same everywhere. On other kernels or SPI workloads, increasing spidev.bufsiz can matter more. It just wasn’t a major factor for me compared to other changes.
